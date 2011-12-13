@@ -1,0 +1,31 @@
+This is a very simple rsync backup script, very much inspired by rsnapshot,
+but with very few dependencies (just a bash and rsync) and backups are pushed
+to a server rather than pulled in.
+Incremental snapshots are rotated in hourly, daily, weekly and monthly intervals.
+
+To use, put the backup script in ~/bin
+Configuration must be put in ~/.backup/config and regular rsync includes/excludes in
+~/.backup/exclude
+
+I run this with the following crontab entries:
+@reboot $HOME/bin/backup > $HOME/.backup/log 2>&1
+49 * * * * $HOME/bin/backup > $HOME/.backup/log 2>&1
+
+The result will look something like this:
+lrwxrwxrwx  1 miklo miklo   10 2011-12-13 20:11 daily.0 -> ./hourly.6
+drwxr-xr-x 18 miklo miklo 4096 2011-12-12 19:49 daily.1
+drwxr-xr-x 18 miklo miklo 4096 2011-12-11 20:50 daily.2
+drwxr-xr-x 18 miklo miklo 4096 2011-12-10 11:49 daily.3
+drwxr-xr-x 18 miklo miklo 4096 2011-12-07 21:49 daily.4
+drwxr-xr-x 18 miklo miklo 4096 2011-12-07 20:49 daily.5
+drwxr-xr-x 18 miklo miklo 4096 2011-12-06 21:49 daily.6
+drwxr-xr-x 18 miklo miklo 4096 2011-12-13 21:49 daily.7
+drwxr-xr-x 18 miklo miklo 4096 2011-12-13 21:49 hourly.0
+drwxr-xr-x 18 miklo miklo 4096 2011-12-13 21:49 hourly.1
+drwxr-xr-x 18 miklo miklo 4096 2011-12-13 20:49 hourly.2
+drwxr-xr-x 18 miklo miklo 4096 2011-12-13 20:11 hourly.3
+drwxr-xr-x 18 miklo miklo 4096 2011-12-12 23:49 hourly.4
+drwxr-xr-x 18 miklo miklo 4096 2011-12-12 22:49 hourly.5
+drwxr-xr-x 18 miklo miklo 4096 2011-12-12 21:49 hourly.6
+lrwxrwxrwx  1 miklo miklo   10 2011-12-13 21:49 monthly.0 -> ./weekly.4
+lrwxrwxrwx  1 miklo miklo    9 2011-12-11 18:49 weekly.0 -> ./daily.7
