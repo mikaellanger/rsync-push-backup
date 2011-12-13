@@ -1,0 +1,6 @@
++ .emacs.d/
++ .backup/
++ .ssh/
+- .*/
+- Downloads/
+
