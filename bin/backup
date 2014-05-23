@@ -86,7 +86,7 @@ function test_age() {
 rotate_snapshots hourly
 test_age daily $(( 24*60*60 )) && rotate_snapshots daily
 test_age weekly $(( 7*24*60*60 )) && rotate_snapshots weekly
-test_age monthly $(( 30*7*24*60*60 )) && rotate_snapshots monthly
+test_age monthly $(( 30*24*60*60 )) && rotate_snapshots monthly
 
 rm $HOME/.backup/lock
 
